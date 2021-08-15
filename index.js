@@ -36,7 +36,7 @@ const readmeQuestions = () => {
                 type: 'confirm',
                 name: 'confirmInstallation',
                 message: 'Would you like to add an installation guide for your application?',
-                default: false
+                default: true
             },
             {
                 type: 'input',
@@ -67,7 +67,7 @@ const readmeQuestions = () => {
                 type: 'confirm',
                 name: 'confirmAuthor',
                 message: 'Are there any other Authors for the application besides yourself?',
-                default: false
+                default: true
             },
             {
                 type: 'input',
@@ -98,7 +98,7 @@ const readmeQuestions = () => {
                 type: 'confirm',
                 name: 'confirmFramework',
                 message: 'Did you use any frameworks for this application?',
-                default: false
+                default: true
             },
             {
                 type: 'checkbox',
@@ -107,6 +107,49 @@ const readmeQuestions = () => {
                 choices: ['Bootstrap', 'jQuery', 'node'],
                 when: ({ confirmFramework }) => {
                     if (confirmFramework) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'confirm',
+                name: 'confirmTests',
+                message: 'Do you have any test for this application?',
+                default: true
+            },
+            {
+                type: 'input',
+                name: 'tests',
+                message: 'Explain any tests for your application:',
+                when: ({ confirmTests }) => {
+                    if (confirmTests) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'github',
+                message: 'What is your GitHub username?',
+                validate: githubInput => {
+                    if (githubInput) {
+                        return true;
+                    } else {
+                        console.log('You must enter your GitHub username!');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'Enter your email so that people can contact you: ',
+                validate: emailInput => {
+                    if (emailInput) {
                         return true;
                     } else {
                         return false;

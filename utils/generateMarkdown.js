@@ -1,6 +1,117 @@
 // generates the badge for the license at the top of the readme
 const generateBadge = license => {
-  return '![badmath](https://img.shields.io/badge/License-${license}-informational)'
+  return `![badmath](https://img.shields.io/badge/License-${license}-informational)`
+}
+
+// function that generates the table of contents dynamically
+const generateTableOfContents = (confirmInstallation, confirmAuthor, confirmFramework, confirmTests, languages) => {
+  // checks to see what sections were added in the regular mode and links the appropriate sections
+  if (confirmInstallation && confirmAuthor && confirmFramework && confirmTests && languages.length > 0) {
+    return `
+## Table of Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
+* [Languages](#languages)
+* [Frameworks](#frameworks)
+* [Tests](#tests)
+* [Questions](#questions)
+    `
+  } else if (confirmInstallation && confirmAuthor && confirmFramework && confirmTests && languages.length == 0) {
+    return `
+## Table of Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
+* [Frameworks](#frameworks)
+* [Tests](#tests)
+* [Questions](#questions)
+    `
+  } else if (!confirmInstallation && confirmAuthor && confirmFramework && confirmTests && languages.length > 0) {
+    return `
+## Table of Contents
+
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
+* [Languages](#languages)
+* [Frameworks](#frameworks)
+* [Tests](#tests)
+* [Questions](#questions)
+    `
+  } else if (!confirmInstallation && confirmAuthor && confirmFramework && confirmTests && languages.length == 0) {
+    return `
+## Table of Contents
+
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
+* [Frameworks](#frameworks)
+* [Tests](#tests)
+* [Questions](#questions)
+    `
+  } else if (!confirmInstallation && !confirmAuthor && confirmFramework && confirmTests && languages.length > 0) {
+    return `
+## Table of Contents
+
+* [Usage](#usage)
+* [License](#license)
+* [Languages](#languages)
+* [Frameworks](#frameworks)
+* [Tests](#tests)
+* [Questions](#questions)
+    `
+  } else if (!confirmInstallation && !confirmAuthor && confirmFramework && confirmTests && languages.length == 0) {
+      return `
+## Table of Contents
+
+* [Usage](#usage)
+* [License](#license)
+* [Frameworks](#frameworks)
+* [Tests](#tests)
+* [Questions](#questions)
+    `
+  } else if (!confirmInstallation && !confirmAuthor && !confirmFramework && confirmTests && languages.length > 0) {
+    return `
+## Table of Contents
+
+* [Usage](#usage)
+* [License](#license)
+* [Languages](#languages)
+* [Tests](#tests)
+* [Questions](#questions)
+    `
+  } else if (!confirmInstallation && !confirmAuthor && !confirmFramework && confirmTests && languages.length == 0) {
+    return `
+## Table of Contents
+
+* [Usage](#usage)
+* [License](#license)
+* [Tests](#tests)
+* [Questions](#questions)
+    `
+  } else if (!confirmInstallation && !confirmAuthor && !confirmFramework && !confirmTests && languages.length > 0) {
+    return `
+## Table of Contents
+
+* [Usage](#usage)
+* [License](#license)
+* [Languages](#languages)
+* [Questions](#questions)
+    `
+  } else {
+    return `
+## Table of Contents
+
+* [Usage](#usage)
+* [License](#license)
+* [Questions](#questions)
+    `
+  }
 }
 
 // function to generate the installation section
@@ -106,11 +217,11 @@ ${frameworks.join(', ')}
     } else if (languages.length > 0 && frameworks.length > 0) {
       // if the user did pick languages it adds the language and framework sections
       return `
-## Langauges
+## Languages
 
 ${languages.join(', ')}
 
-## Framworks
+## Frameworks
 
 ${frameworks.join(', ')}
       `;
@@ -128,24 +239,41 @@ ${frameworks.join(', ')}
   }
 };
 
+// functions to generate tests section if the user had tests to add
+const generateTests = (confirmTests, tests) => {
+  if (confirmTests) {
+    return `
+## Tests
+
+${tests}
+    `
+  } else {
+    return '';
+  }
+};
+
 // function to generate the readme
 const generateMarkdown = data => {
   // variables to hold all of the different inputs
-  const {title, description, installation, instructions, authorName} = data;
+  const {title, description, installation, instructions, authorName, tests, github, email} = data;
   
   //  variables to hold the confirm information from the data set
-  const {confirmInstallation, confirmAuthor, confirmFramework} = data;
+  const {confirmInstallation, confirmAuthor, confirmFramework, confirmTests} = data;
 
   // variables to hold the arrays included in the dataset
   const {license, languages, frameworks} = data;
 
   // creates the markdown that will be used in the README
   return `
-# ${title} ${generateBadge(license)}
+# ${title} 
+
+${generateBadge(license)}
 
 ## Description
 
 ${description}
+
+${generateTableOfContents(confirmInstallation, confirmAuthor, confirmFramework, confirmTests, languages)}
 
 ${generateInstallation(confirmInstallation, installation)}
 
@@ -158,6 +286,14 @@ ${generateAuthorSection(confirmAuthor, authorName)}
 ${generateLicense(license)}
 
 ${generateLangFrame(confirmFramework, languages, frameworks)}
+
+${generateTests(confirmTests, tests)}
+
+## Questions
+
+You can find my GitHub profile [here](https://github.com/${github}).
+
+For any other questions you can email me here: [${email}](mailto:${email}).
   `;
 };
 
