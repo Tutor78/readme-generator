@@ -5,8 +5,7 @@ const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // TODO: Create an array of questions for user input
 const readmeQuestions = () => {
-    inquirer
-        .prompt([
+    return inquirer.prompt([
             {
                 type: 'input',
                 name: 'title',
@@ -23,7 +22,7 @@ const readmeQuestions = () => {
             {
                 type: 'input',
                 name: 'description',
-                message: 'Write a description of your application:',
+                message: 'Write a brief description of your application:',
                 validate: descriptionInput => {
                     if(descriptionInput) {
                         return true;
@@ -32,12 +31,6 @@ const readmeQuestions = () => {
                         return false;
                     }
                 }
-            },
-            {
-                type: 'confirm',
-                name: 'confirmTableOfContents',
-                message: 'Do you need to include a table of contents?',
-                default: false
             },
             {
                 type: 'confirm',
@@ -72,12 +65,6 @@ const readmeQuestions = () => {
             },
             {
                 type: 'confirm',
-                name: 'screenshot',
-                message: 'Would you like to include a screenshot in your application?',
-                default: false
-            },
-            {
-                type: 'confirm',
                 name: 'confirmAuthor',
                 message: 'Are there any other Authors for the application besides yourself?',
                 default: false
@@ -85,7 +72,7 @@ const readmeQuestions = () => {
             {
                 type: 'input',
                 name: 'authorName',
-                message: 'List your collaborators seperated by commas:',
+                message: 'List up to four collaborators seperated by a comma and a space:',
                 when: ({confirmAuthor}) => {
                     if (confirmAuthor) {
                         return true;
@@ -95,22 +82,17 @@ const readmeQuestions = () => {
                 } 
             },
             {
-                type: 'checkbox',
+                type: 'list',
                 name: 'license',
                 message: 'Which license would you like to use for this application?',
-                choices: ['MIT', 'GNU GPLv3']
+                choices: ['MIT', 'GNU GPLv3'],
+                default: 'MIT'
             },
             {
                 type: 'checkbox',
                 name: 'languages',
                 message: 'What languages did you use in this project?',
                 choices: ['HTML', 'Javascript', 'CSS']
-            },
-            {
-                type: 'confirm',
-                name: 'confirmBadges',
-                message: 'Would you like to include badges for your languages used?',
-                default: false
             },
             {
                 type: 'confirm',
@@ -131,17 +113,17 @@ const readmeQuestions = () => {
                     }
                 }
             }
-        ])
-        .then(answers => {
-            console.log(answers);
-        });
+        ]);
     };
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
-function init() {}
+const init = () => {
+    readmeQuestions()
+        .then(answers => generateMarkdown(answers))
+}
 
 // Function call to initialize app
 init();
