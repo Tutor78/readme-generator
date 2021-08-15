@@ -3,116 +3,47 @@ const generateBadge = license => {
   return `![badmath](https://img.shields.io/badge/License-${license}-informational)`
 };
 
-// function that generates the table of contents dynamically
-const generateTableOfContents = (confirmInstallation, confirmAuthor, confirmFramework, confirmTests, languages) => {
-  // checks to see what sections were added in the regular mode and links the appropriate sections
-  if (confirmInstallation && confirmAuthor && confirmFramework && confirmTests && languages.length > 0) {
-    return `
-## Table of Contents
 
-* [Installation](#installation)
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
-* [Languages](#languages)
-* [Frameworks](#frameworks)
-* [Tests](#tests)
-* [Questions](#questions)
-    `
-  } else if (confirmInstallation && confirmAuthor && confirmFramework && confirmTests && languages.length == 0) {
-    return `
-## Table of Contents
-
-* [Installation](#installation)
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
-* [Frameworks](#frameworks)
-* [Tests](#tests)
-* [Questions](#questions)
-    `
-  } else if (!confirmInstallation && confirmAuthor && confirmFramework && confirmTests && languages.length > 0) {
-    return `
-## Table of Contents
-
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
-* [Languages](#languages)
-* [Frameworks](#frameworks)
-* [Tests](#tests)
-* [Questions](#questions)
-    `
-  } else if (!confirmInstallation && confirmAuthor && confirmFramework && confirmTests && languages.length == 0) {
-    return `
-## Table of Contents
-
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
-* [Frameworks](#frameworks)
-* [Tests](#tests)
-* [Questions](#questions)
-    `
-  } else if (!confirmInstallation && !confirmAuthor && confirmFramework && confirmTests && languages.length > 0) {
-    return `
-## Table of Contents
-
-* [Usage](#usage)
-* [License](#license)
-* [Languages](#languages)
-* [Frameworks](#frameworks)
-* [Tests](#tests)
-* [Questions](#questions)
-    `
-  } else if (!confirmInstallation && !confirmAuthor && confirmFramework && confirmTests && languages.length == 0) {
-      return `
-## Table of Contents
-
-* [Usage](#usage)
-* [License](#license)
-* [Frameworks](#frameworks)
-* [Tests](#tests)
-* [Questions](#questions)
-    `
-  } else if (!confirmInstallation && !confirmAuthor && !confirmFramework && confirmTests && languages.length > 0) {
-    return `
-## Table of Contents
-
-* [Usage](#usage)
-* [License](#license)
-* [Languages](#languages)
-* [Tests](#tests)
-* [Questions](#questions)
-    `
-  } else if (!confirmInstallation && !confirmAuthor && !confirmFramework && confirmTests && languages.length == 0) {
-    return `
-## Table of Contents
-
-* [Usage](#usage)
-* [License](#license)
-* [Tests](#tests)
-* [Questions](#questions)
-    `
-  } else if (!confirmInstallation && !confirmAuthor && !confirmFramework && !confirmTests && languages.length > 0) {
-    return `
-## Table of Contents
-
-* [Usage](#usage)
-* [License](#license)
-* [Languages](#languages)
-* [Questions](#questions)
-    `
+// series of functions that generate the table of contents
+const addInstallation = confirmInstallation => {
+  if (confirmInstallation) {
+    return '* [Installation](#installation)';
   } else {
-    return `
-## Table of Contents
-
-* [Usage](#usage)
-* [License](#license)
-* [Questions](#questions)
-    `
+    return '';
   }
 };
+
+const addCredits = confirmAuthor => {
+  if (confirmAuthor) {
+    return '* [Credits](#credits)';
+  } else {
+    return '';
+  }
+};
+
+const addLanguages = languages => {
+  if (languages.length > 0) {
+    return '* [Languages](#languages)';
+  } else {
+    return '';
+  }
+};
+
+const addFrameworks = confirmFramework => {
+  if (confirmFramework) {
+    return '* [Frameworks](#frameworks)';
+  } else {
+    return '';
+  }
+};
+
+const addTests = confirmTests => {
+  if (confirmTests) {
+    return '* [Tests](#tests)'
+  } else {
+    return '';
+  }
+}
 
 // function to generate the installation section
 const generateInstallation = (confirmInstallation, installation) => {
@@ -229,9 +160,9 @@ ${frameworks.join(', ')}
   } else if (languages.length > 0) {
     // if the user didn't choose to add frameworks but added languages it only adds that section
     return `
-  ## Languages
+## Languages
 
-  ${languages.join(', ')}
+${languages.join(', ')}
     `;
   } else {
     // if the user did not pick any languages or frameworks it doesn't add either
@@ -273,7 +204,16 @@ ${generateBadge(license)}
 
 ${description}
 
-${generateTableOfContents(confirmInstallation, confirmAuthor, confirmFramework, confirmTests, languages)}
+## Table of Contents
+
+${addInstallation(confirmInstallation)}
+* [Usage](#usage)
+${addCredits(confirmAuthor)}
+* [License](#license)
+${addLanguages(languages)}
+${addFrameworks(confirmFramework)}
+${addTests(confirmTests)}
+* [Questions](#questions)
 
 ${generateInstallation(confirmInstallation, installation)}
 
@@ -293,7 +233,7 @@ ${generateTests(confirmTests, tests)}
 
 You can find my GitHub profile [here](https://github.com/${github}).
 
-For any other questions you can email me here: [${email}](mailto:${email}).
+For any other questions you can email me [here](mailto:${email}).
   `;
 };
 
