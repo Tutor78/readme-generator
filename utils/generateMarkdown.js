@@ -1,7 +1,7 @@
 // generates the badge for the license at the top of the readme
 const generateBadge = license => {
   return `![badmath](https://img.shields.io/badge/License-${license}-informational)`
-}
+};
 
 // function that generates the table of contents dynamically
 const generateTableOfContents = (confirmInstallation, confirmAuthor, confirmFramework, confirmTests, languages) => {
@@ -112,7 +112,7 @@ const generateTableOfContents = (confirmInstallation, confirmAuthor, confirmFram
 * [Questions](#questions)
     `
   }
-}
+};
 
 // function to generate the installation section
 const generateInstallation = (confirmInstallation, installation) => {
