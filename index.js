@@ -159,26 +159,6 @@ const readmeQuestions = () => {
         ]);
     };
 
-const mockData = 
-    {
-        title: 'Run Buddy',
-        description: 'lorem ipsum dolores something something dark side yada yada yada',
-        confirmInstallation: true,
-        installation: 'No real instructions for installation check back later',
-        instructions: 'Just scroll up and down and click some buttons. But most importantly have fun!',
-        confirmAuthor: false,
-        authorName: 'Steve Stevenson, Jack Jackinson, Kathy Beedy, Steph Curringtonton',
-        license: 'MIT',
-        languages: [],
-        // languages: ['HTML', 'CSS'],
-        confirmFramework: false,
-        frameworks: ['Bootstrap'],
-        confirmTests: true,
-        tests: 'Not really any tests as this is just a static website',
-        github: 'Tutor78',
-        email: 'tutor.michael78@gmail.com'
-    }
-
 // init function that holds the main logic for the application to work
 const init = () => {
     readmeQuestions()
@@ -189,8 +169,4 @@ const init = () => {
 }
 
 // Function call to initialize app
-// init();
-
-writeFile(generateMarkdown(mockData))
-    .then(writeFileResponse => console.log(writeFileResponse.message))
-    .catch(err => console.log(err));
+init();
