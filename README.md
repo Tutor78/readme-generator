@@ -5,7 +5,7 @@
 
 ## Description
 
-A command line application using node.js to help create a professional README for your projects. This README is an example of one it can make.
+A command line application using node.js to help create a professional README for your projects. This README is an example of what the README generator can make.
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ A command line application using node.js to help create a professional README fo
 
 ## Installation
 
-You must first clone the files to your machine and then run npm install to download the required dependancies in order to run this application.   
+You must first clone the files to your machine. Next you need to navigate to the folder that you cloned the files to and then run npm install to download the required dependancies in order to run this application.
 
 ## Usage
 
