@@ -104,7 +104,7 @@ const readmeQuestions = () => {
                 type: 'checkbox',
                 name: 'frameworks',
                 message: 'What frameworks did you use?',
-                choices: ['Bootstrap', 'jQuery', 'node'],
+                choices: ['Bootstrap', 'jQuery', 'node.js'],
                 when: ({ confirmFramework }) => {
                     if (confirmFramework) {
                         return true;
