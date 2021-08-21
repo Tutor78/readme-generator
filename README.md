@@ -25,7 +25,7 @@ You must first clone the files to your machine. Next you need to navigate to the
 
 ## Usage
 
-First navigate to the folder that contains index.js and run node index.js. After this, you will be presented with a number of prompts that will help you to dynamically generate a README for your application.
+First navigate to the folder that contains index.js and run node index.js. After this, you will be presented with a number of prompts that will help you to dynamically generate a README for your application. You can find a video [here](https://drive.google.com/file/d/1FrpgsYwOiY--N_rvOwm5B08cBA_mZSpY/view) that demonstrates how to use the application.
 
 ## Credits
 
