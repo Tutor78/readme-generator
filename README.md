@@ -50,5 +50,3 @@ There are currently no tests for this application.
 ## Questions
 
 You can find my GitHub profile [here](https://github.com/Tutor78).
-
-For any other questions you can email me [here](mailto:tutor.michael78@gmail.com).
